@@ -1,0 +1,25 @@
+.background {
+    background-color: rgb(195, 246, 140);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.title {
+    text-align: center;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+}
+
+.background2 {
+    background-color: rgb(232, 246, 140);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
