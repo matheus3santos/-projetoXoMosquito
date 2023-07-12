@@ -9,15 +9,6 @@ import React from "react"
 
 
 
-
-
-
-
-
-
-
-
-
 export default function CadastroPage(props){
 
 
@@ -34,14 +25,15 @@ export default function CadastroPage(props){
 
     function registerUser() {
         const method = props.user ? "put" : "post"
+
         axios[method]("http://localhost:3008/api/user", {
             "id": props.user ? props.user.id : undefined,
-            "nome": names,
+            "name": names,
             "email": email,
-            "data": date,
-            "endereco":adress,
+            "date": date,
+            "adress":adress,
             "telefone":number,
-            "senha":password
+            "senha":password,
         }).then(r => {
             alert(message)
             setOpen(true)
@@ -67,13 +59,13 @@ export default function CadastroPage(props){
         <div className={styles.background}>
             <LoginCard title={'Cria sua conta'}>
                     <form className={styles.form}>
-                        <Input type='name' placeholder="Digite seu nome" />
-                        <Input type='email' placeholder="Digite seu email" />
-                        <Input type='date' placeholder="Data de Nascimento" />
-                        <Input type='adress' placeholder="Digite seu endereço" />
-                        <Input type='number' placeholder="Digite seu telefone" />
+                        <Input type='name' value={names} onChange={(e) => { setNome(e.target.value)}} placeholder="Digite seu nome" />
+                        <Input type='email' value={email} onChange={(e) => { setEmail(e.target.value)}} placeholder="Digite seu email" />
+                        <Input type='date' value={date} onChange={(e) => { setData(e.target.value)}} placeholder="Data de Nascimento" />
+                        <Input type='adress' value={adress} onChange={(e) => { setAdress(e.target.value)}} placeholder="Digite seu endereço" />
+                        <Input type='number' value={number} onChange={(e) => { setNumber(e.target.value)}} placeholder="Digite seu telefone" />
                         <Input type='password' placeholder="Digite sua senha" />
-                        <Button onClick={()=> registerUser()}>Cadastrar</Button>
+                        <Button onClick={registerUser()}>Cadastrar</Button>
                         <Link href='/login'>Já possui uma conta? Se sim, clique aqui.</Link>
                     </form>
             </LoginCard>
