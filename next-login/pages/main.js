@@ -48,8 +48,8 @@ export default function Main(props){
                 <LoginCard title={'Faça sua denuncia'}>
                     <form className={styles.form}>
                         <Input type='name' value={adress} onChange={(e) => { setAdress(e.target.value) }} placeholder="Endereço" />
-                        <Input type='email' value={reference} onChange={(e) => { setDescription(e.target.value) }} placeholder="Referencia" />
-                        <Input type='password'  value={description} onChange={(e) => { setReference(e.target.value) }} placeholder="Descrição do problema" />
+                        <Input type='text' value={reference} onChange={(e) => { setReference(e.target.value) }} placeholder="Referencia" />
+                        <Input type='text'  value={description} onChange={(e) => { setDescription(e.target.value) }} placeholder="Descrição do problema" />
                         <Button onClick={() => registerProduct()}>
                             {props.queixa ? "Denunciar" : "Salvar"}
                             </Button>
