@@ -18,7 +18,7 @@ export default function Historico(props){
     React.useEffect(()=> {
         axios.get("http://localhost:3008/api/queixa").then(
             r=> {
-                setQueixa(r.data)
+                setQueixa(r.data.data)
             }
         )
     }, [])
@@ -27,7 +27,7 @@ export default function Historico(props){
         setQueixaEditar(prod)
     }
 
-    function handleDeletarQueixa(){
+    function handleDeletarQueixa(id){
 
         axios.delete("http://localhost:3008/api/queixa" + id).then(
             r => {
@@ -60,7 +60,7 @@ export default function Historico(props){
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {props.queixa && props.queixa.map((row, index)=>(
+                    {queixa && queixa.map((row, index)=>(
                         <TableRow
                             key={row.id}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -81,7 +81,7 @@ export default function Historico(props){
                                         color:'secondary',
                                         cursor:'pointer'
                                     }
-                                }} onClick={handleDeletarQueixa(row.id)}/>
+                                }} onClick={() => handleDeletarQueixa(row.id)}/>
 
                             </TableCell>
                     </TableRow>

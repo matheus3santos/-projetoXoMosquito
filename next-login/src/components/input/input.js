@@ -1,11 +1,7 @@
 import styles from './input.module.css'
 
-
-export default function Input(props){
+export default function Input({ name, register, ...rest }) {
     return (
-        <input className={styles.input}{...props}>
-
-        </input>
+            <input className={styles.input}{...rest} />
     )
-
 }
