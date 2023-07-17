@@ -4,7 +4,9 @@ import { TableContainer, Table, TableHead, TableCell, TableRow, TableBody, Paper
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import axios from "axios"
-import useForm from "react-hook-form"
+import LoginCard from "@/src/components/loginCard"
+import InputRegister from "@/src/components/input/inputRegister"
+import Button from "@/src/components/button/button"
 
 
 
@@ -26,15 +28,10 @@ export default function Historico(props){
         )
     }, [])
 
-    const handleEditarQueixa = (prod) => {
-        setQueixaEditar(prod)
-    }
-
-    const DeletarQueixa = (id) => {
-
-        axios.delete("http://localhost:3008/api/queixa" + id).then(
+    const deletarQueixa = (id) => {
+        axios.delete("http://localhost:3008/api/queixa/" + id).then(
             r => {
-                axios.get("http://localhost:3008/api/queixa").then(
+                axios.get("http://localhost:3008/api/queixa/").then(
                     r=>{
                         setQueixa(r.data)
                     }
@@ -43,7 +40,10 @@ export default function Historico(props){
         )
     }
 
-    
+    const editar = async (data) => {
+        data.preventDefault();
+
+        axios.put("http://localhost:3008/api/queixa/" + queixaEditar.id, post).then(
 
 
     return(
@@ -73,18 +73,25 @@ export default function Historico(props){
                             <TableCell align="left">{row.reference}</TableCell>
                             <TableCell align="right">{row.description}</TableCell>
                             <TableCell>
+                                
+                           
+                               
                                 <EditIcon color='primary' sx={{
                                     '&:hover':{
                                         color:'secondary',
                                         cursor:'pointer'
                                     }
-                                }} onClick={e => props.handleEditarQueixa(row)}/>
+                                }} onClick={() => queixaEditar(row)}/>
+                                
+                                
+                                
+                                
                                 <DeleteIcon color='error' sx={{
                                     '&:hover':{
                                         color:'secondary',
                                         cursor:'pointer'
                                     }
-                                }} onClick={() => DeletarQueixa(row.id)}/>
+                                }} onClick={() => deletarQueixa(row.id)}/>
 
                             </TableCell>
                     </TableRow>
@@ -93,6 +100,14 @@ export default function Historico(props){
                 </TableBody>
             </Table>
         </TableContainer>
+        <LoginCard title={'Faça sua denuncia'}>
+            <form className={styles.form}>
+                <input type='text' placeholder='Endereço' name="adress"/>
+                <input type='text' placeholder='Referência' name="reference"/>
+                <input type='text' placeholder='Descrição' name="description"/>
+                <Button type="submit">Editar</Button>
+            </form>
+        </LoginCard>
     </div>
 
        
