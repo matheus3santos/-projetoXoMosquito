@@ -4,12 +4,15 @@ import { TableContainer, Table, TableHead, TableCell, TableRow, TableBody, Paper
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import axios from "axios"
+import useForm from "react-hook-form"
 
 
 
 
 
 export default function Historico(props){
+
+
 
     const [queixa, setQueixa] = React.useState([])
     const [queixaEditar, setQueixaEditar] = React.useState(undefined)
@@ -27,7 +30,7 @@ export default function Historico(props){
         setQueixaEditar(prod)
     }
 
-    function handleDeletarQueixa(id){
+    const DeletarQueixa = (id) => {
 
         axios.delete("http://localhost:3008/api/queixa" + id).then(
             r => {
@@ -81,7 +84,7 @@ export default function Historico(props){
                                         color:'secondary',
                                         cursor:'pointer'
                                     }
-                                }} onClick={() => handleDeletarQueixa(row.id)}/>
+                                }} onClick={() => DeletarQueixa(row.id)}/>
 
                             </TableCell>
                     </TableRow>

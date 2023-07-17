@@ -6,26 +6,22 @@ import LoginCard from "@/src/components/loginCard"
 import stylesmain from "@/styles/Cadastro.module.css"
 import axios from "axios"
 import React from "react"
+import InputRegister from "@/src/components/input/inputRegister"
+
+import { set, useForm } from "react-hook-form"
 
 
 export default function Main(props){
 
-    const [open, setOpen] = React.useState(false);
-    const [message, setMessage] = React.useState(props.queixa ? "A queixa foi editada!" : "A queixa foi cadastrada!")
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors },
+    } = useForm();
 
-    const [reference, setReference] = React.useState("")
-    const [adress, setAdress] = React.useState("")
-    const [description, setDescription] = React.useState("")
-   
-
-    function registerProduct() {
-        const method = props.queixa ? "put" : "post"
-        axios[method]("http://localhost:3008/api/queixa", {
-            "id": props.queixa ? props.queixa.id : undefined,
-            "endereco": adress,
-            "descricao": description,
-            "referencia": reference
-        }).then(r => {
+    const onSubmit = (data) => {
+        axios.post("http://localhost:3008/api/queixa", data).then(r => {
             alert(message)
             setOpen(true)
             setTimeout(() => {
@@ -34,25 +30,19 @@ export default function Main(props){
         })
     }
 
-    React.useEffect(() => {
-        if (props.queixa) {
-            setAdress(props.queixa.adress)
-            setDescription(props.queixa.description)
-            setReference(props.queixa.reference)
-        }
-    }, [props.queixa])
+
+    const [open, setOpen] = React.useState(false);
+    const [message, setMessage] = React.useState(props.queixa ? "A queixa foi editada!" : "A queixa foi cadastrada!")
 
     return(
         <div>
             <div className={styles.background}>
                 <LoginCard title={'Faça sua denuncia'}>
-                    <form className={styles.form}>
-                        <Input type='name' value={adress} onChange={(e) => { setAdress(e.target.value) }} placeholder="Endereço" />
-                        <Input type='text' value={reference} onChange={(e) => { setReference(e.target.value) }} placeholder="Referencia" />
-                        <Input type='text'  value={description} onChange={(e) => { setDescription(e.target.value) }} placeholder="Descrição do problema" />
-                        <Button onClick={() => registerProduct()}>
-                            {props.queixa ? "Denunciar" : "Salvar"}
-                            </Button>
+                    <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+                        <InputRegister type='text' placeholder='Endereço' register={register} name="adress"/>
+                        <InputRegister type='text' placeholder='Referência' register={register} name="reference"/>
+                        <InputRegister type='text' placeholder='Descrição' register={register}  name="description"/>
+                        <Button type="submit">Registrar queixa</Button>
 
                         <Button>
                         <Link href='/historico'>

@@ -35,12 +35,12 @@ export default function CadastroPage(props) {
         <div className={styles.background}>
             <LoginCard title={'Cria sua conta'}>
                 <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-                    <InputRegister type='text' register={register} name="name" />
-                    <InputRegister type='text' register={register} name="email" />
-                    <InputRegister type='text' register={register} name="data" />
-                    <InputRegister type='text' register={register} name="adress" />
-                    <InputRegister type='number' register={register} name="telefone" />
-                    {/* <Input type='password' placeholder="Digite sua senha" /> */}
+                    <InputRegister type='text' placeholder='Nome' register={register} name="name" />
+                    <InputRegister type='text' placeholder='email' register={register} name="email" />
+                    <InputRegister type='text' placeholder='Data Nascimento' register={register} name="data" />
+                    <InputRegister type='text' placeholder='Endereço' register={register} name="adress" />
+                    <InputRegister type='text' placeholder='Telefone' register={register} name="telefone" />
+                    <InputRegister type='password' placeholder="Digite sua senha" register={register} name="senha" />
                     <Button type="submit">Cadastrar</Button>
                     <Link href='/login'>Já possui uma conta? Se sim, clique aqui.</Link>
                 </form>
