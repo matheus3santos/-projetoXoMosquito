@@ -44,6 +44,7 @@ export default function CadastroPage(props) {
                     <Button type="submit">Cadastrar</Button>
                     <Link href='/login'>Já possui uma conta? Se sim, clique aqui.</Link>
                 </form>
+                    
             </LoginCard>
         </div>
     )

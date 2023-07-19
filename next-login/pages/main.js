@@ -46,7 +46,9 @@ export default function Main(props){
                         <InputRegister type='text' placeholder='Descrição' register={register}  name="description"/>
                         <Button type="submit">Registrar queixa</Button>
 
-                        <Button><Link href='/historico'>Historico</Link></Button>
+                        <Button>
+                            <Link href='/historico'>Historico</Link>
+                            </Button>
                         <Link href='/login'>Logout</Link>
                     </form>
                 </LoginCard>

@@ -8,6 +8,7 @@ import LoginCard from "@/src/components/loginCard"
 import InputRegister from "@/src/components/input/inputRegister"
 import Button from "@/src/components/button/button"
 
+import { useForm } from "react-hook-form"
 
 
 
@@ -15,9 +16,18 @@ import Button from "@/src/components/button/button"
 export default function Historico(props){
 
 
+    const {
+        register,
+        handleSubmit,
+        watch,
+        formState: { errors },
+    } = useForm();
 
+
+   
     const [queixa, setQueixa] = React.useState([])
-    const [queixaEditar, setQueixaEditar] = React.useState(undefined)
+    const [queixaEditar, setQueixaEditar] = React.useState(false)
+    console.log(queixa)
 
 
     React.useEffect(()=> {
@@ -28,12 +38,12 @@ export default function Historico(props){
         )
     }, [])
 
-    const deletarQueixa = (id) => {
-        axios.delete("http://localhost:3008/api/queixa/" + id).then(
+    const deletarQueixa = async (id) => {
+        await axios.delete("http://localhost:3008/api/queixa/" + id).then(
             r => {
                 axios.get("http://localhost:3008/api/queixa/").then(
                     r=>{
-                        setQueixa(r.data)
+                        setQueixa(r.data.data)
                     }
                 )
             }
@@ -41,9 +51,18 @@ export default function Historico(props){
     }
 
     const editar = async (data) => {
-        data.preventDefault();
+        console.log(data)
+        
+    }
 
-        axios.put("http://localhost:3008/api/queixa/" + queixaEditar.id, post).then(
+     const [open, setOpen] = React.useState(false);
+     const [message, setMessage] = React.useState(props.queixa ? "A queixa foi editada" : " ")
+
+
+
+
+
+
 
 
     return(
@@ -81,7 +100,7 @@ export default function Historico(props){
                                         color:'secondary',
                                         cursor:'pointer'
                                     }
-                                }} onClick={() => queixaEditar(row)}/>
+                                }} onClick={() => setQueixaEditar(true)}/>
                                 
                                 
                                 
@@ -100,14 +119,18 @@ export default function Historico(props){
                 </TableBody>
             </Table>
         </TableContainer>
-        <LoginCard title={'Faça sua denuncia'}>
-            <form className={styles.form}>
-                <input type='text' placeholder='Endereço' name="adress"/>
-                <input type='text' placeholder='Referência' name="reference"/>
-                <input type='text' placeholder='Descrição' name="description"/>
+
+        {queixaEditar && (
+
+            <LoginCard title={'Faça sua denuncia'}>
+            <form onSubmit={handleSubmit(editar)} className={styles.form}>
+                <InputRegister type='text' placeholder='Endereço' register={register} name="adress"/>
+                <InputRegister type='text' placeholder='Referência' register={register} name="reference"/>
+                <InputRegister type='text' placeholder='Descrição' register={register} name="description"/>
                 <Button type="submit">Editar</Button>
             </form>
         </LoginCard>
+            )}
     </div>
 
        
